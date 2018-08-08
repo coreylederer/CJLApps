@@ -1,4 +1,4 @@
- // Simple blockchain example app 
+// Simple blockchain example app 
 // Corey lederer 8/8/2018
 // Inspired by:  Simply Explained - Savjee
 //
