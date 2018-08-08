@@ -1,4 +1,8 @@
- 
+ // Simple blockchain example app 
+// Corey lederer 8/8/2018
+// Inspired by:  Simply Explained - Savjee
+//
+
  const SHA256 = require('crypto-js/sha256');
  
  class Block{
