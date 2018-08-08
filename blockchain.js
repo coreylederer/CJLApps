@@ -2,17 +2,16 @@
 // Corey lederer 8/8/2018
 // Inspired by:  Simply Explained - Savjee
 //
+const SHA256 = require('crypto-js/sha256');
 
- const SHA256 = require('crypto-js/sha256');
- 
- class Block{
+class Block{
     constructor(block, timestamp, reversible, data, previousHash = ''){
         this.block = block;
         this.timestamp = timestamp;
         this.reversible = reversible;
         this.data = data;
         this.previousHash = previousHash;
-        this.hash = this.calculateHash();
+        this.currentHash = this.calculateHash();
     }
 
     calculateHash(){
@@ -27,7 +26,7 @@ class Blockchain {
     }
 
     createGenesisBlock(){
-        return new Block(0, "08/08/2018", "Corey's Genesis Block", "NULL");
+        return new Block("-1", "08/08/2018", "Corey's Genesis Block", "Genesis Block","null previous hash - genesis block");
     }
 
     getLatestBlock() {
@@ -35,21 +34,24 @@ class Blockchain {
     }
 
     addBlock(newBlock){
-        newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.previousHash = this.getLatestBlock().currentHash;
+        newBlock.currentHash = newBlock.calculateHash();
         this.chain.push(newBlock);
 
     }
 }
 
 let coreyCoin = new Blockchain();
-coreyCoin.addBlock(new Block(1, "8/8/2018", "no", {amount: 1,stuff: "Things"}));
-coreyCoin.addBlock(new Block(2, "8/8/2018", "no", {amount: 2,other_stuff: "This other stuff"}));
-coreyCoin.addBlock(new Block(3, "8/8/2018", "no", {amount: 3,other_stuff_er: "This otherer stuff"}));
-coreyCoin.addBlock(new Block(4, "8/8/2018", "no", {amount: 4,not_stuff: "This isn't stuff"}));
-coreyCoin.addBlock(new Block(5, "8/8/2018", "no", {amount: 5,your_stuff: "This is your stuff"}));
-coreyCoin.addBlock(new Block(6, "8/8/2018", "", {amount: 6,boring_stuff: "Boring stuff"}));
-coreyCoin.addBlock(new Block(7, "8/8/2018", "", {amount: 7,sleepy_stuff: "This other stuff will put you to sleep"}));
+for (iLoop = 0; iLoop < 10;) {
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "no", {amount: iLoop++,stuff: "Things"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "no", {amount: iLoop++,other_stuff: "This other stuff"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "no", {amount: iLoop++,other_stuff_er: "This otherer stuff"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "no", {amount: iLoop++,not_stuff: "This isn't stuff"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "no", {amount: iLoop++,your_stuff: "This is your stuff"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "", {amount: iLoop++,boring_stuff: "Boring stuff"}));
+    coreyCoin.addBlock(new Block(iLoop, "8/8/2018", "", {amount: iLoop++,sleepy_stuff: "This other stuff will put you to sleep"}));
+    
+}
 
 
-console.log(JSON.stringify(coreyCoin, null, 4));
+console.log(JSON.stringify(coreyCoin, null, 3));
