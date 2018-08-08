@@ -40,12 +40,12 @@ class Blockchain {
 
 let coreyCoin = new Blockchain();
 coreyCoin.addBlock(new Block(1, "8/8/2018", "no", {amount: 1,stuff: "Things"}));
-coreyCoin.addBlock(new Block(2, "8/8/2018", "no", {amount: 2}));
-coreyCoin.addBlock(new Block(3, "8/8/2018", "no", {amount: 3}));
-coreyCoin.addBlock(new Block(4, "8/8/2018", "no", {amount: 4}));
-coreyCoin.addBlock(new Block(5, "8/8/2018", "no", {amount: 5}));
-coreyCoin.addBlock(new Block(6, "8/8/2018", "", {amount: 6}));
-coreyCoin.addBlock(new Block(7, "8/8/2018", "", {amount: 7}));
+coreyCoin.addBlock(new Block(2, "8/8/2018", "no", {amount: 2,other_stuff: "This other stuff"}));
+coreyCoin.addBlock(new Block(3, "8/8/2018", "no", {amount: 3,other_stuff_er: "This otherer stuff"}));
+coreyCoin.addBlock(new Block(4, "8/8/2018", "no", {amount: 4,not_stuff: "This isn't stuff"}));
+coreyCoin.addBlock(new Block(5, "8/8/2018", "no", {amount: 5,your_stuff: "This is your stuff"}));
+coreyCoin.addBlock(new Block(6, "8/8/2018", "", {amount: 6,boring_stuff: "Boring stuff"}));
+coreyCoin.addBlock(new Block(7, "8/8/2018", "", {amount: 7,sleepy_stuff: "This other stuff will put you to sleep"}));
 
 
 console.log(JSON.stringify(coreyCoin, null, 4));
