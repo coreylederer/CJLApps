@@ -12,17 +12,27 @@ class Block {
         this.data = data;
         this.previousHash = previousHash;
         this.currentHash = this.calculateHash();
+        this.nonce = 0;
     }
 
     calculateHash() {
-        return SHA256(this.block + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+        return SHA256(this.block + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+    }
+
+    mineBlock(difficulty) {
+        while (this.currentHash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+            this.nonce++;
+            this.currentHash = this.calculateHash();
+
+        }
+        console.log("block mined", this.currentHash);
     }
 }
 
 class Blockchain {
     constructor() {
         this.chain = [this.createGenesisBlock()];
-
+        this.difficulty = 5;
     }
 
     createGenesisBlock() {
@@ -35,7 +45,8 @@ class Blockchain {
 
     addBlock(newBlock) {
         newBlock.previousHash = this.getLatestBlock().currentHash;
-        newBlock.currentHash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
+        //newBlock.currentHash = newBlock.calculateHash();
         this.chain.push(newBlock);
     }
 
@@ -50,14 +61,14 @@ class Blockchain {
                 console.log('Current block hash !== calculated hash');
                 //return false;
             } else {
-                console.log('Current Block Hash: ', currentBlock.currentHash, 'Calculated it is: ', currentBlock.calculateHash());
+                //console.log('Current Block Hash: ', currentBlock.currentHash, 'Calculated it is: ', currentBlock.calculateHash());
             }
 
             if (currentBlock.previousHash !== previousBlock.currentHash) {
                 console.log('Current block hash !== Prev block hash');
                 return false;
             } else {
-                console.log('Current Block Previous Hash: ', currentBlock.previousHash, 'Previous Block Current Hash: ', previousBlock.currentHash);
+                //console.log('Current Block Previous Hash: ', currentBlock.previousHash, 'Previous Block Current Hash: ', previousBlock.currentHash);
             }
         }
         return true;
